@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingTop: StatusBar.currentHeight,
-    height: 345,
+    height: 245,
   },
     logo: {
-        width: 200,
-        height: 200,
-        marginTop: 100,
+        width: 150,
+        height: 150,
+        marginTop: 50,
         marginLeft: 100,
     }
 });

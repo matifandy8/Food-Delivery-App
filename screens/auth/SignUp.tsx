@@ -1,18 +1,80 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Button, Alert, TouchableOpacity} from 'react-native';
+import { useForm, FormProvider, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
+import Constants from 'expo-constants';
+import { TextInput } from './components/TextInput';
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 export default function SignUp() {
+// useForm hook and set default behavior/values
+   const {...methods} = useForm({mode: 'onChange'});
+   
+   const onSubmit: SubmitHandler<FormValues> = (data) => console.log({data});
+
+   const [formError, setError] = useState<Boolean>(false)
+   
+  const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
+    return console.log({errors})
+  }
+
   return (
     <View style={styles.container}>
-        <Text>SignUp</Text>
+       { formError ? <View><Text style={{color: 'red'}}>There was a problem with loading the form. Please try again later.</Text></View> :
+       <>
+        <FormProvider {...methods}>
+        <TextInput
+          name="email"
+          placeholder="jon.doe@email.com"
+          keyboardType="email-address"
+          rules={{
+            required: 'Email is required!',
+            pattern: {
+              value: /\b[\w\\.+-]+@[\w\\.-]+\.\w{2,4}\b/,
+              message: 'Must be formatted: john.doe@email.com',
+            },
+          }}
+          setFormError={setError}
+         />
+        <TextInput
+          name="password"
+          secureTextEntry
+          placeholder="**********"
+          rules={{ required: 'Password is required!' }}
+          setFormError={setError}
+        />
+      </FormProvider>
+      </>
+       }
+      <TouchableOpacity
+        style={styles.button}
+        onPress={methods.handleSubmit(onSubmit, onError)}
+      >
+        <Text>Sign-Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginTop: 10,
+    color: 'white',
+    width: 321,
+    height: 56,
+    backgroundColor: '#F8774A',
+    borderRadius: 30,
+    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    padding: 8,
+    marginTop: 30,
   },
 });
