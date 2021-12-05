@@ -28,11 +28,11 @@ const TabNavigator = () => {
     }}
     style={{backgroundColor: '#fff'}}
    >
+     <Tab.Screen name="Login" options={{ tabBarLabel: `Login` }}
+       children={() => <Login/>}/>
      <Tab.Screen 
        name="SingUp" options={{ tabBarLabel: `Sign Up` }} 
        children={() => <SignUp/> } />
-     <Tab.Screen name="Login" options={{ tabBarLabel: `Login` }}
-       children={() => <Login/>}/>
    </Tab.Navigator>
   );
 };

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Button, Alert, TouchableOpacity} from 'react-native';
 import { useForm, FormProvider, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import Constants from 'expo-constants';
 import { TextInput } from './components/TextInput';
+import { auth } from '../../firebase';
+import { useNavigation } from '@react-navigation/native';
 
 type FormValues = {
   email: string;
@@ -12,8 +14,21 @@ type FormValues = {
 export default function SignUp() {
 // useForm hook and set default behavior/values
    const {...methods} = useForm({mode: 'onChange'});
-   
-   const onSubmit: SubmitHandler<FormValues> = (data) => console.log({data});
+
+   const navigation = useNavigation()
+
+
+   const onSubmit: SubmitHandler<FormValues> = (data) => {
+     console.log(data.email);
+      auth
+      .createUserWithEmailAndPassword(data.email, data.password)
+      .then((userCredentials:any) => {
+        const user = userCredentials.user;
+        console.log('Registered with:', user.email);
+      })
+      .catch((error:any) => alert(error.message))
+   }
+
 
    const [formError, setError] = useState<Boolean>(false)
    
@@ -59,6 +74,7 @@ export default function SignUp() {
   );
 }
 
+
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
@@ -77,4 +93,4 @@ const styles = StyleSheet.create({
     padding: 8,
     marginTop: 30,
   },
-});
+})
