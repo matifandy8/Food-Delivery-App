@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Auth from './screens/auth/Auth';
-import { auth } from './firebase';
-import HomeScreen from './screens/HomeScreen';
+import React, { useState, useEffect } from "react";
+import Auth from "./screens/auth/Auth";
+import { auth } from "./firebase";
+import HomeScreen from "./screens/HomeScreen";
 
 export default function App() {
   // Set an initializing state while Firebase connects
@@ -9,7 +9,7 @@ export default function App() {
   const [user, setUser] = useState();
 
   // Handle user state changes
-  function onAuthStateChanged(user:any) {
+  function onAuthStateChanged(user: any) {
     setUser(user);
     if (initializing) setInitializing(false);
   }
@@ -22,13 +22,8 @@ export default function App() {
   if (initializing) return null;
 
   if (!user) {
-    return (
-      <Auth/>
-    );
+    return <Auth />;
   }
 
-  return (
-    <HomeScreen/>
-  );
+  return <HomeScreen />;
 }
-

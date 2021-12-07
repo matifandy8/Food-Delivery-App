@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -15,9 +15,8 @@ import {
 } from "react-hook-form";
 import Constants from "expo-constants";
 import { TextInput } from "./components/TextInput";
-import { auth } from '../../firebase';
-import { useNavigation } from '@react-navigation/native';
-
+import { auth } from "../../firebase";
+import { useNavigation } from "@react-navigation/native";
 
 type FormValues = {
   email: string;
@@ -28,17 +27,16 @@ export default function Login() {
   // useForm hook and set default behavior/values
   const { ...methods } = useForm({ mode: "onChange" });
 
-  const navigation = useNavigation()
-
+  const navigation = useNavigation();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     auth
       .signInWithEmailAndPassword(data.email, data.password)
-      .then((userCredentials:any) => {
+      .then((userCredentials: any) => {
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
       })
-      .catch((error:any) => alert(error.message));
+      .catch((error: any) => alert(error.message));
   };
 
   const [formError, setError] = useState<Boolean>(false);
