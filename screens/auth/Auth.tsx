@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import Nav from "./components/Nav";
 import TabNavigator from "./components/TabNavigator";
 
+
 export default function Auth() {
   return (
     <View style={styles.container}>
