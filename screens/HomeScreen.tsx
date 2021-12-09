@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { auth } from '../firebase'
+import Restaurants from "./components/Restaurants";
+
 
 export default function HomeScreen() {
 
@@ -14,10 +16,10 @@ export default function HomeScreen() {
       <Text>Email: {auth.currentUser?.email}</Text>
       <TouchableOpacity
         onPress={handleSignOut}
-        style={styles.button}
       >
-        <Text style={styles.buttonText}>Sign out</Text>
+        <Text>Sign out</Text>
       </TouchableOpacity>
+    <Restaurants/>
     </View>
   );
 }
