@@ -12,13 +12,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> Home Screen </Text>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <TouchableOpacity
-        onPress={handleSignOut}
-      >
-        <Text>Sign out</Text>
-      </TouchableOpacity>
+     
     <Restaurants/>
     </View>
   );
@@ -30,9 +24,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  text: {
-    fontSize: 30,
-    color: "#000",
   },
 });
